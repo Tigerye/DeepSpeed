@@ -846,6 +846,7 @@ class PipelineEngine(DeepSpeedEngine):
         # This handles either a single tensor or tuple of tensors.
         if isinstance(outputs, tuple):
             out_tensors = [t for t in outputs if t.is_floating_point()]
+            out_tensors = outputs[:1]
             assert len(out_tensors) == len(grad_tensors)
             torch.autograd.backward(tensors=out_tensors, grad_tensors=grad_tensors)
         else:
